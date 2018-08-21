@@ -1,15 +1,28 @@
 var _noCaptchaFields=_noCaptchaFields || [];
 
+// Retain which form is being challenged
+// So we can submit it with callback
+var formToSubmit = null;
+
 function noCaptchaFieldRender() {
+
+    // Default event when form is submitted
+    // Will trigger invisble recaptcha
     var submitListener=function(e) {
-        e.preventDefault();
-        
-        grecaptcha.execute();
+        formToSubmit = e.target;
+        var recaptchaWidget = formToSubmit.querySelectorAll('[data-widgetid]')[0];
+
+        // We need to pass the widget_id to the grecaptcha method
+        // Just in case there are multiple form on the page
+        if (recaptchaWidget) {
+            e.preventDefault();
+            var widget_id = recaptchaWidget.getAttribute('data-widgetid');
+            grecaptcha.execute(widget_id);
+        }
     };
     
     for(var i=0;i<_noCaptchaFields.length;i++) {
         var field=document.getElementById('Nocaptcha-'+_noCaptchaFields[i]);
-        
         
         //For the invisible captcha we need to setup some callback listeners
         if(field.getAttribute('data-size')=='invisible' && field.getAttribute('data-callback')==null) {
@@ -20,7 +33,8 @@ function noCaptchaFieldRender() {
                 var formValidator=jQuery(form).data('validator');
                 var superHandler=formValidator.settings.submitHandler;
                 formValidator.settings.submitHandler=function(form) {
-                    grecaptcha.execute();
+                    formToSubmit = form;
+                    grecaptcha.execute(field);
                 };
             }else {
                 if(form && form.addEventListener) {
@@ -32,11 +46,15 @@ function noCaptchaFieldRender() {
                 }
             }
             
-            window['Nocaptcha-'+_noCaptchaFields[i]]=function() {
+            // Default callback method
+            // var currentForm is set in the listener instead of using the form var 
+            // in this loop as it would mean if there are multiple forms, only the last one in the 
+            // loop would be submitted
+            window['Nocaptcha-'+_noCaptchaFields[i]] = function(token) {
                 if(typeof jQuery!='undefined' && typeof jQuery.fn.validate!='undefined' && superHandler) {
-                    superHandler(form);
+                    superHandler(formToSubmit);
                 }else {
-                    form.submit();
+                    formToSubmit.submit();
                 }
             };
         }
