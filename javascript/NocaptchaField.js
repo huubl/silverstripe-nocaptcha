@@ -13,7 +13,7 @@ function noCaptchaFieldRender() {
         var recaptchaWidget = formToSubmit.querySelectorAll('[data-widgetid]')[0];
 
         // We need to pass the widget_id to the grecaptcha method
-        // Just in case there are multiple form on the page
+        // Just in case there are multiple forms on the page
         if (recaptchaWidget) {
             e.preventDefault();
             var widget_id = recaptchaWidget.getAttribute('data-widgetid');
@@ -24,8 +24,8 @@ function noCaptchaFieldRender() {
     for(var i=0;i<_noCaptchaFields.length;i++) {
         var field=document.getElementById('Nocaptcha-'+_noCaptchaFields[i]);
         
-        //For the invisible captcha we need to setup some callback listeners
-        if(field.getAttribute('data-size')=='invisible' && field.getAttribute('data-callback')==null) {
+        // For the invisible captcha we need to setup some callback listeners
+        if(field.getAttribute('data-size')=='invisible') {
             var form=document.getElementById(field.getAttribute('data-form'));
             var superHandler=false;
             
@@ -34,7 +34,7 @@ function noCaptchaFieldRender() {
                 var superHandler=formValidator.settings.submitHandler;
                 formValidator.settings.submitHandler=function(form) {
                     formToSubmit = form;
-                    grecaptcha.execute(field);
+                    grecaptcha.execute(field.getAttribute('data-widgetid'));
                 };
             }else {
                 if(form && form.addEventListener) {
@@ -50,13 +50,15 @@ function noCaptchaFieldRender() {
             // var currentForm is set in the listener instead of using the form var 
             // in this loop as it would mean if there are multiple forms, only the last one in the 
             // loop would be submitted
-            window['Nocaptcha-'+_noCaptchaFields[i]] = function(token) {
-                if(typeof jQuery!='undefined' && typeof jQuery.fn.validate!='undefined' && superHandler) {
-                    superHandler(formToSubmit);
-                }else {
-                    formToSubmit.submit();
-                }
-            };
+            if (field.getAttribute('data-callback') == null) {
+                window['Nocaptcha-'+_noCaptchaFields[i]] = function(token) {
+                    if(typeof jQuery!='undefined' && typeof jQuery.fn.validate!='undefined' && superHandler) {
+                        superHandler(formToSubmit);
+                    }else {
+                        formToSubmit.submit();
+                    }
+                };
+            }
         }
         
         var options={
