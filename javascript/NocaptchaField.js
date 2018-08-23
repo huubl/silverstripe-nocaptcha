@@ -5,7 +5,6 @@ var _noCaptchaFields=_noCaptchaFields || [];
 var formToSubmit = null;
 
 function noCaptchaFieldRender() {
-
     // Default event when form is submitted
     // Will trigger invisble recaptcha
     var submitListener=function(e) {
@@ -25,7 +24,8 @@ function noCaptchaFieldRender() {
         var field=document.getElementById('Nocaptcha-'+_noCaptchaFields[i]);
         
         // For the invisible captcha we need to setup some callback listeners
-        if(field.getAttribute('data-size')=='invisible') {
+        // Also check that the recaptcha is not already initialised (in case of multiple form on a page and ajax refresh call)
+        if(field.getAttribute('data-size')=='invisible' && field.getAttribute('data-widgetid') == null) {
             var form=document.getElementById(field.getAttribute('data-form'));
             var superHandler=false;
             var formValidator = false;
@@ -69,16 +69,19 @@ function noCaptchaFieldRender() {
             }
         }
         
-        var options={
-            'sitekey': field.getAttribute('data-sitekey'),
-            'theme': field.getAttribute('data-theme'),
-            'type': field.getAttribute('data-type'),
-            'size': field.getAttribute('data-size'),
-            'badge': field.getAttribute('data-badge'),
-            'callback': (field.getAttribute('data-callback') ? field.getAttribute('data-callback') : 'Nocaptcha-'+_noCaptchaFields[i])
-        };
-        
-        var widget_id = grecaptcha.render(field, options);
-        field.setAttribute("data-widgetid", widget_id);
+        // Initialise fields that haven;t been initialised yet
+        if (field.getAttribute('data-widgetid') == null) {
+            var options={
+                'sitekey': field.getAttribute('data-sitekey'),
+                'theme': field.getAttribute('data-theme'),
+                'type': field.getAttribute('data-type'),
+                'size': field.getAttribute('data-size'),
+                'badge': field.getAttribute('data-badge'),
+                'callback': (field.getAttribute('data-callback') ? field.getAttribute('data-callback') : 'Nocaptcha-'+_noCaptchaFields[i])
+            };
+            
+            var widget_id = grecaptcha.render(field, options);
+            field.setAttribute("data-widgetid", widget_id);
+        }        
     }
 }
