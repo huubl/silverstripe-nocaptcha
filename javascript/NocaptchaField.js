@@ -28,15 +28,23 @@ function noCaptchaFieldRender() {
         if(field.getAttribute('data-size')=='invisible') {
             var form=document.getElementById(field.getAttribute('data-form'));
             var superHandler=false;
-            
+            var formValidator = false;
+
+            // Check if form validator is applied to this form
             if(typeof jQuery!='undefined' && typeof jQuery.fn.validate!='undefined') {
-                var formValidator=jQuery(form).data('validator');
+                formValidator=jQuery(form).data('validator');
+            }
+
+            // If jas validator, use superhandler
+            if(typeof formValidator !== 'undefined' &&  formValidator !== false) {
                 var superHandler=formValidator.settings.submitHandler;
                 formValidator.settings.submitHandler=function(form) {
                     formToSubmit = form;
                     grecaptcha.execute(field.getAttribute('data-widgetid'));
                 };
-            }else {
+            }
+            // Otherwise set custom listener for submit event
+            else {
                 if(form && form.addEventListener) {
                     form.addEventListener('submit', submitListener);
                 }else if(form && form.attachEvent) {
