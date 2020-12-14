@@ -1,5 +1,30 @@
 # Change Log
 
+## [2.1.0](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/2.1.0) (2020-09-09)
+[Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/2.0.5...2.1.0)
+
+**Implemented enhancements:**
+
+- NEW add support for recaptcha v3 [\#62](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/62) ([wilr](https://github.com/wilr))
+
+## [2.0.5](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/2.0.5) (2019-09-16)
+[Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/2.0.4...2.0.5)
+
+**Fixed bugs:**
+
+- Multiple form with nocaptcha \(invisible\) on one page [\#39](https://github.com/UndefinedOffset/silverstripe-nocaptcha/issues/39)
+
+**Merged pull requests:**
+
+- Fixes issue 39 [\#54](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/54) ([christopherbolt](https://github.com/christopherbolt))
+
+## [2.0.4](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/2.0.4) (2019-07-29)
+[Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/2.0.3...2.0.4)
+
+**Fixed bugs:**
+
+- ReCAPTCHA couldn't find user-provided function [\#50](https://github.com/UndefinedOffset/silverstripe-nocaptcha/issues/50)
+
 ## [2.0.3](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/2.0.3) (2019-05-13)
 [Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/2.0.2...2.0.3)
 
@@ -99,10 +124,6 @@
 ## [0.2.0](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/0.2.0) (2016-09-30)
 [Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/0.1.5...0.2.0)
 
-**Closed issues:**
-
-- Test master against 3.2 core? [\#12](https://github.com/UndefinedOffset/silverstripe-nocaptcha/issues/12)
-
 **Merged pull requests:**
 
 - Cant have a blank title for nocatpcha fields [\#23](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/23) ([Leapfrognz](https://github.com/Leapfrognz))
@@ -112,10 +133,17 @@
 - Added standard .gitattributes file [\#17](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/17) ([helpfulrobot](https://github.com/helpfulrobot))
 - Added standard .editorconfig file [\#15](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/15) ([helpfulrobot](https://github.com/helpfulrobot))
 - DOCS Updated versions [\#14](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/14) ([camfindlay](https://github.com/camfindlay))
-- Update for 3.2 core and spamprotection compatibility [\#13](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/13) ([camfindlay](https://github.com/camfindlay))
 
 ## [0.1.5](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/0.1.5) (2015-10-01)
 [Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/0.1.4...0.1.5)
+
+**Closed issues:**
+
+- Test master against 3.2 core? [\#12](https://github.com/UndefinedOffset/silverstripe-nocaptcha/issues/12)
+
+**Merged pull requests:**
+
+- Update for 3.2 core and spamprotection compatibility [\#13](https://github.com/UndefinedOffset/silverstripe-nocaptcha/pull/13) ([camfindlay](https://github.com/camfindlay))
 
 ## [0.1.4](https://github.com/UndefinedOffset/silverstripe-nocaptcha/tree/0.1.4) (2015-09-08)
 [Full Changelog](https://github.com/UndefinedOffset/silverstripe-nocaptcha/compare/0.1.3...0.1.4)
